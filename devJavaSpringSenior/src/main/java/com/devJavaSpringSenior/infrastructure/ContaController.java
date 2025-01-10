@@ -1,5 +1,8 @@
 package com.devJavaSpringSenior.infrastructure;
 
+import java.io.IOException;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.devJavaSpringSenior.infrastructure.dto.ContaDto;
+import com.devJavaSpringSenior.infrastructure.exception.CabecalhoException;
 
 @Controller
 @RequestMapping("/pagamentos")
@@ -19,6 +25,9 @@ public class ContaController {
 	
 	@Autowired
 	private ContaService contaService;
+	
+	@Autowired
+	private ImportaContasCsv importaContasCsv;
 
 	@PostMapping("/cadastrarConta")
 	public ResponseEntity<?> criarConta(@RequestBody ContaDto contaDto) {
@@ -74,5 +83,27 @@ public class ContaController {
 	public ResponseEntity<?> totalPagoPorPeriodo(@PathVariable("dataInicial") String dataInicial, 
 			@PathVariable("dataFinal") String dataFinal) {
 		return ResponseEntity.ok(contaService.findTotalPagoPorPeriodo(dataInicial, dataFinal));
+	}
+	
+	@PostMapping("/loadCsvFile")
+	public ResponseEntity<?> uploadCsv(MultipartFile file) {
+        
+		if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body("Nenhum arquivo foi enviado.");
+        }
+		
+		try {
+			
+			return ResponseEntity.ok(importaContasCsv.lerArquivo(file));
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		} catch (CabecalhoException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return ResponseEntity.ok(Optional.empty());
 	}
 }

@@ -1,5 +1,7 @@
 package com.devJavaSpringSenior.domain;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -42,6 +44,27 @@ public class ContaEntity {
 	
 	@Column(name = "situacao")
 	private String situacao;
+	
+	
+	
+
+	public ContaEntity(Date dataVencimento, Date dataPagamento, Double valor, String descricao, String situacao) {
+		super();
+		this.dataVencimento = dataVencimento;
+		this.dataPagamento = dataPagamento;
+		this.valor = valor;
+		this.descricao = descricao;
+		this.situacao = situacao;
+	}
+
+	public ContaEntity(String dataVencimento, String dataPagamento, String valor, String descricao, String situacao) {
+		
+		this.dataVencimento = this.criarDataFromString(dataVencimento);
+		this.dataPagamento = this.criarDataFromString(dataPagamento);
+		this.valor = Double.valueOf(valor);
+		this.descricao = descricao;
+		this.situacao = situacao;
+	}
 
 	public Long getId() {
 		return id;
@@ -89,6 +112,16 @@ public class ContaEntity {
 
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
+	}
+	
+	private Date criarDataFromString(String dataString) {
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
+		try {
+			return formato.parse(dataString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null; 
 	}
 	
 	
