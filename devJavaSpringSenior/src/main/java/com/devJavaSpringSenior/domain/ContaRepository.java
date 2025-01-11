@@ -3,14 +3,15 @@ package com.devJavaSpringSenior.domain;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ContaRepository extends JpaRepository<ContaEntity, Long> {
+public interface ContaRepository extends PagingAndSortingRepository<ContaEntity, Long>, JpaRepository<ContaEntity, Long> {
 	
-	List<ContaEntity> findByDataPagamentoBetween(Date dataInicial, Date dataFinal);
-	// Deixei implementado, embora no exemplo informe dataVencimento E descrição;
-	List<ContaEntity> findByDataVencimentoOrDescricao(Date dataVencimento, String descricao);
-
-	List<ContaEntity> findByDataVencimentoAndDescricaoContainingIgnoreCase(Date dataVencimentoDate, String descricaoString);
+		
+	List<ContaEntity> findByDataPagamentoBetween(Date dataInicial, Date dataFinal, Pageable pageable);
+	
+	List<ContaEntity> findByDataVencimentoAndDescricaoContainingIgnoreCase(Date dataVencimentoDate, String descricaoString, Pageable pageable);
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +26,7 @@ public class ImportaContasCsv {
 
 	private static final String CABECALHO = "dataVencimento;dataPagamento;valor;descricao;situacao";
 	
-	public List<ContaEntity> lerArquivo(final MultipartFile file) throws CabecalhoException, IOException {
+	public List<ContaEntity> lerArquivo(final MultipartFile file, Pageable pageable) throws CabecalhoException, IOException {
 		
 		var contas = new ArrayList<ContaEntity>();
 		 List<ContaEntity> contasExtraidas = new ArrayList<ContaEntity>();
@@ -102,8 +103,8 @@ public class ImportaContasCsv {
 	}
 
 	private static void validadorCabecalho(String cabecalho) throws CabecalhoException {
-		
-		if(StringUtils.isEmpty(cabecalho) || CABECALHO.equalsIgnoreCase(cabecalho)) {
+		// verificar porque não está labçando a exceção
+		if(StringUtils.isEmpty(cabecalho) || CABECALHO.equals(cabecalho)) {
 			throw new CabecalhoException(cabecalho);
 		}
 		

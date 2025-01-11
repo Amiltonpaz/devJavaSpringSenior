@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.devJavaSpringSenior.domain.ContaEntity;
@@ -20,7 +21,6 @@ public class ContaService {
 	private ContaRepository repository;
 	
 	public ContaEntity getById(Long id) {
-		// Usar Optional
 		return repository.findById(id).get();
 	}
 	
@@ -29,10 +29,10 @@ public class ContaService {
 		return repository.save(conta);
 	}
 	
-	public ValorPagoDto findTotalPagoPorPeriodo(String dataInicialString, String dataFinalString) {
+	public ValorPagoDto findTotalPagoPorPeriodo(String dataInicialString, String dataFinalString, Pageable pageable) {
 		Date dataInicialDate = this.criarDataFromStringHifen(dataInicialString);
 		Date dataFinalDate = this.criarDataFromStringHifen(dataFinalString);
-		List<ContaEntity> listaDeContas = this.repository.findByDataPagamentoBetween(dataInicialDate, dataFinalDate);
+		List<ContaEntity> listaDeContas = this.repository.findByDataPagamentoBetween(dataInicialDate, dataFinalDate, pageable);
 		
 		//Preencher valorPAgo com outro método
 		ValorPagoDto valorPago = this.calculaValorPago(listaDeContas);
@@ -40,12 +40,12 @@ public class ContaService {
 		return valorPago;
 	}
 	
-	public List<ContaEntity> findContasPorVencimentoDescricao(String dataVencimentoString, String descricaoString) {
+	public List<ContaEntity> findContasPorVencimentoDescricao(String dataVencimentoString, String descricaoString, Pageable pageable) {
 		Date dataVencimentoDate = this.criarDataFromStringHifen(dataVencimentoString);
 		
-		List<ContaEntity> listaDeContas = this.repository.findByDataVencimentoAndDescricaoContainingIgnoreCase(dataVencimentoDate, descricaoString);
+		return this.repository.findByDataVencimentoAndDescricaoContainingIgnoreCase(dataVencimentoDate, descricaoString, pageable);
 
-		return listaDeContas;
+		 
 	}
 	
 	public ContaEntity atualizaConta(ContaDto contaDto) {
@@ -89,6 +89,10 @@ public class ContaService {
 		Date dataPagamento = this.criarDataFromString(contaDto.getDataPagamento());
 		Date dataVencimento = this.criarDataFromString(contaDto.getDataVencimento());
 		
+		if(contaDto.getId() != null) {
+			conta.setId(contaDto.getId());
+		}
+				
 		conta.setDataPagamento(dataPagamento);
 		conta.setDataVencimento(dataVencimento);
 		conta.setDescricao(contaDto.getDescricao());
