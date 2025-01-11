@@ -1,13 +1,30 @@
 services:
+  # Serviço do banco de dados PostgreSQL
   database:
     image: postgres:14
     environment:
-      - "POSTGRES_USER=postgres"
-      - "POSTGRES_PASSWORD=root"
-      - "POSTGRES_DB=contasapagar"
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=contasapagar
     ports:
-      - 2222:5432
+      - "2222:5432"
     volumes:
       - pg-data:/var/lib/postgresql/data
+
+  # Serviço da aplicação Java
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/contasapagar
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - database
+    command: sh -c "sleep 10 && java -jar /app/app.jar"
+    
 volumes:
   pg-data:

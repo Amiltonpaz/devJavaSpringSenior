@@ -2,14 +2,26 @@ package com.devJavaSpringSenior.infrastructure.dto;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Builder;
-
-@Builder
 public class ContaDto {
 	
 	public ContaDto() {
 		
 	}
+	
+	
+
+	public ContaDto(Long id, String dataVencimento, String dataPagamento, Double valor, String descricao,
+			String situacao) {
+		super();
+		this.id = id;
+		this.dataVencimento = dataVencimento;
+		this.dataPagamento = dataPagamento;
+		this.valor = valor;
+		this.descricao = descricao;
+		this.situacao = situacao;
+	}
+
+
 
 	private Long id;
 	
