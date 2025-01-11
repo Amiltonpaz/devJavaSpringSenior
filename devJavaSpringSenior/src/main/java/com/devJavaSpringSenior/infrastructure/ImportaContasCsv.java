@@ -14,13 +14,18 @@ import org.springframework.web.multipart.MultipartFile;
 import com.devJavaSpringSenior.domain.ContaEntity;
 import com.devJavaSpringSenior.domain.ContaRepository;
 import com.devJavaSpringSenior.infrastructure.exception.CabecalhoException;
-import com.devJavaSpringSenior.infrastructure.exception.LinhaInvalidaException;
 
 import io.micrometer.common.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
+
 
 @Service
+@Slf4j
 public class ImportaContasCsv {
 	
+	 private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ImportaContasCsv.class);
+
+			
 	@Autowired
 	private ContaRepository contaRepository;
 
@@ -48,10 +53,7 @@ public class ImportaContasCsv {
 			
 			return contaRepository.saveAll(contasExtraidas);
 			
-		} catch (LinhaInvalidaException e) {
-			
-			e.printStackTrace();
-		}catch (Exception  e) {
+		} catch (Exception  e) {
 			e.printStackTrace();
 		}
 		
@@ -78,9 +80,6 @@ public class ImportaContasCsv {
 			}
 			
 			return contaRepository.saveAll(contasExtraidas);
-		} catch (LinhaInvalidaException e) {
-			
-			e.printStackTrace();
 		}catch (Exception  e) {
 			e.printStackTrace();
 		}
@@ -89,22 +88,22 @@ public class ImportaContasCsv {
 		
 	}
 
-	public List<ContaEntity> adicionarContas(String linha, List<ContaEntity> contas) throws LinhaInvalidaException {
+	public List<ContaEntity> adicionarContas(String linha, List<ContaEntity> contas){
 		var campos = linha.split(";");
 		
-		if(campos == null || campos.length < 5) {
-			// lançar warn não pararia o processamento;
-			throw new LinhaInvalidaException();
+		if(campos == null || campos.length < 5) {			
+			log.warn("Linha inválida {} ", linha); // Usei o log.warn para não lançar uma exceção e interromper o processamento;			
 		}else {
 			contas.add(new ContaEntity(campos[0], campos[1], campos[2], campos[3], campos[4]));
 			return contas;
 		}
+		return null;
 		
 	}
 
 	private static void validadorCabecalho(String cabecalho) throws CabecalhoException {
-		// verificar porque não está labçando a exceção
-		if(StringUtils.isEmpty(cabecalho) || CABECALHO.equals(cabecalho)) {
+		//TODO Verificar validação do cabeçalho
+		if(StringUtils.isEmpty(cabecalho) || CABECALHO.equalsIgnoreCase(cabecalho)) {
 			throw new CabecalhoException(cabecalho);
 		}
 		

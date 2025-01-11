@@ -16,3 +16,15 @@ CREATE SEQUENCE IF NOT EXISTS pagamento_id_seq
  MAXVALUE 9223372036854775807
  START 1
  CACHE 1;
+ 
+ -- Criação da tabela usuario
+CREATE TABLE IF NOT EXISTS usuario (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL
+);
+
+INSERT INTO usuario (email, senha)
+VALUES ('dev@linkas.com.br', '$2b$12$04RZq88tq/DybaeAn4RAyOdhqj1EGDqF4/kKM9FORRhGbCEXSHKGW')
+ON CONFLICT (email) DO NOTHING;
+
