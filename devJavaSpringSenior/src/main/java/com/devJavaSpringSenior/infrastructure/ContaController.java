@@ -89,7 +89,7 @@ public class ContaController {
 		
 		try {
 			
-			return ResponseEntity.ok(importaContasCsv.lerArquivo(file, pageable));
+			return ResponseEntity.ok(importaContasCsv.lerArquivo(file));
 			
 		} catch (IOException e) {
 			

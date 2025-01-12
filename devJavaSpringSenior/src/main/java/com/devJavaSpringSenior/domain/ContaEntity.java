@@ -115,10 +115,20 @@ public class ContaEntity {
 	}
 	
 	private Date criarDataFromString(String dataString) {
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
+		
 		try {
+			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
 			return formato.parse(dataString);
 		} catch (ParseException e) {
+			
+			 try {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+				return dateFormat.parse(dataString);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null; 
