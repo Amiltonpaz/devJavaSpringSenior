@@ -1,5 +1,4 @@
 # devJavaSpringSenior
-Repositório destinado a vaga oferecida pela Lyncas
 
 *Após baixar o projeto, executar o comando docker-compose --build de dentro do diretório onde o arquivo docker-compose está localizado, para criar a imagem da aplicação e subir os containers.
 Criei o usuário e senha abaixo para autenticar e obter o token.
