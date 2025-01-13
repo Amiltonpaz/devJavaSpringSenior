@@ -47,7 +47,7 @@ public class ContaServiceTest {
     
     @Before
     public void setUp() throws ParseException {
-    	 MockitoAnnotations.initMocks(this);
+    	 MockitoAnnotations.openMocks(this);
         // Preparando os dados para os testes
         contaDto = new ContaDto();
         contaDto.setId(1L);
@@ -74,7 +74,7 @@ public class ContaServiceTest {
         when(contaRepository.findById(1L)).thenReturn(Optional.of(contaEntity));
 
         // Teste do método
-        ContaEntity resultado = contaService.getById(1L);
+        ContaDto resultado = contaService.getById(1L);
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId().longValue());
         verify(contaRepository, times(1)).findById(1L);
@@ -86,7 +86,7 @@ public class ContaServiceTest {
         when(contaRepository.save(any(ContaEntity.class))).thenReturn(contaEntity);
 
         // Teste do método
-        ContaEntity resultado = contaService.create(contaDto);
+        ContaDto resultado = contaService.create(contaDto);
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId().longValue());
         verify(contaRepository, times(1)).save(any(ContaEntity.class));
@@ -113,7 +113,7 @@ public class ContaServiceTest {
                 .thenReturn(listaDeContas);
 
         // Teste do método
-        List<ContaEntity> resultado = contaService.findContasPorVencimentoDescricao("01-10-2020", "Teste", pageable);
+        List<ContaDto> resultado = contaService.findContasPorVencimentoDescricao("01-10-2020", "Teste", pageable);
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
         verify(contaRepository, times(1)).findByDataVencimentoAndDescricaoContainingIgnoreCase(any(Date.class), eq("Teste"), eq(pageable));
@@ -126,7 +126,7 @@ public class ContaServiceTest {
         when(contaRepository.save(any(ContaEntity.class))).thenReturn(contaEntity);
 
         // Teste do método
-        ContaEntity resultado = contaService.atualizaConta(contaDto);
+        ContaDto resultado = contaService.atualizaConta(contaDto);
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId().longValue());
         verify(contaRepository, times(1)).save(any(ContaEntity.class));
@@ -139,7 +139,7 @@ public class ContaServiceTest {
         when(contaRepository.save(any(ContaEntity.class))).thenReturn(contaEntity);
 
         // Teste do método
-        ContaEntity resultado = contaService.atualizaSituacaoConta(contaDto);
+        ContaDto resultado = contaService.atualizaSituacaoConta(contaDto);
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId().longValue());
         verify(contaRepository, times(1)).save(any(ContaEntity.class));

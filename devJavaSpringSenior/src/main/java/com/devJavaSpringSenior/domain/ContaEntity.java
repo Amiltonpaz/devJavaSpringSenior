@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.devJavaSpringSenior.infrastructure.exception.DataParseException;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
@@ -59,11 +60,16 @@ public class ContaEntity {
 
 	public ContaEntity(String dataVencimento, String dataPagamento, String valor, String descricao, String situacao) {
 		
-		this.dataVencimento = this.criarDataFromString(dataVencimento);
-		this.dataPagamento = this.criarDataFromString(dataPagamento);
-		this.valor = Double.valueOf(valor);
-		this.descricao = descricao;
-		this.situacao = situacao;
+		try {
+			this.dataVencimento = this.criarDataFromString(dataVencimento);
+			this.dataPagamento = this.criarDataFromString(dataPagamento);
+			this.valor = Double.valueOf(valor);
+			this.descricao = descricao;
+			this.situacao = situacao;
+		} catch (DataParseException e) {		
+			e.printStackTrace();
+		}
+		
 	}
 
 	public Long getId() {
@@ -114,24 +120,20 @@ public class ContaEntity {
 		this.situacao = situacao;
 	}
 	
-	private Date criarDataFromString(String dataString) {
-		
-		try {
-			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
-			return formato.parse(dataString);
-		} catch (ParseException e) {
-			
-			 try {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-				return dateFormat.parse(dataString);
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null; 
+	private Date criarDataFromString(String dataString) throws DataParseException {
+	    String[] formatos = {"dd/MM/yyyy", "dd-MM-yyyy"};
+	    
+	    for (String formato : formatos) {
+	        try {
+	            SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
+	            return dateFormat.parse(dataString);
+	        } catch (ParseException e) {
+	            // Ignora a exceção e tenta o próximo formato
+	        }
+	    }
+	    
+	    // Lança uma exceção personalizada quando nenhum formato é válido
+	    throw new DataParseException("Erro ao parsear a data: formato inválido");
 	}
 	
 	

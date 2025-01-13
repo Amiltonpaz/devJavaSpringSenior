@@ -41,7 +41,7 @@ public class ImportaContasCsvTest {
 
 	    @Before
 	    public void setUp() {
-	        MockitoAnnotations.initMocks(this);
+	    	 MockitoAnnotations.openMocks(this);
 	    }
 
 	    @Test
@@ -104,20 +104,22 @@ public class ImportaContasCsvTest {
 	        assertNull(resultado);
 	    }
 
-	    @Test
+	    @SuppressWarnings("static-access")
+		@Test
 	    public void testValidadorCabecalhoInvalido() {
 	        try {
-	        	importaContaCsv.validadorCabecalho("dataVencimento;dataPagamento");
+	        	ImportaContasCsv.validadorCabecalho("dataVencimento;dataPagamento");
 	            fail("Deveria ter lançado CabecalhoException");
 	        } catch (CabecalhoException e) {
 	            // Exceção esperada
 	        }
 	    }
 
-	    @Test
+	    @SuppressWarnings("static-access")
+		@Test
 	    public void testValidadorCabecalhoValido() {
 	        try {
-	        	importaContaCsv.validadorCabecalho("dataVencimento;dataPagamento;valor;descricao;situacao");
+	        	ImportaContasCsv.validadorCabecalho("dataVencimento;dataPagamento;valor;descricao;situacao");
 	        } catch (CabecalhoException e) {
 	            fail("Não deveria lançar exceção para um cabeçalho válido.");
 	        }
