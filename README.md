@@ -5,8 +5,6 @@ Criei o usuário e senha abaixo para autenticar e obter o token.
 
 Após adicionar o token, já conseguirá acessar as rotas. Toas estão funcionando.
 
-*Embora nos prints a porta usada foi a 8080, coloquei a aplicação para ser executada na porta 9000 para não chocar talvez com algum serviço local da máquina que será usada para avaliar o teste.
-
 * Sobre o requisito geral número 11, não foi possível paginar TODAS as rotas, pois a paginação depende de uma lista para ser implementada, ou seja, não consigo paginar uma rota que tras apenas 1 registro.
 
 ![image](https://github.com/user-attachments/assets/81f1779c-5ecc-43a9-898a-c911bc018083)
