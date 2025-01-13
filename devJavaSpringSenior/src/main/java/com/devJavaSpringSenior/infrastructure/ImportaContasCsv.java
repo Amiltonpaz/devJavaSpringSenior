@@ -43,10 +43,7 @@ public class ImportaContasCsv {
 		try( var scanner = new Scanner(inputStream)) {
 			
 			scanner.useDelimiter("\n");
-			
-			var cabecalho = scanner.next();
-			validadorCabecalho(cabecalho);
-			
+
 			while(scanner.hasNext()) {
 				
 				contasExtraidas =	adicionarContas(scanner.next(), contas);
@@ -54,13 +51,8 @@ public class ImportaContasCsv {
 			}
 			
 			return contaRepository.saveAll(contasExtraidas);
-			
-		} catch (Exception  e) {
-			e.printStackTrace();
 		}
-		
-		return null;
-		
+
 	}
 	
 	public List<ContaEntity> lerArquivo(final InputStream inputStream) throws CabecalhoException, IOException {

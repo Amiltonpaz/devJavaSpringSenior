@@ -2,15 +2,15 @@
 
 CREATE TABLE IF NOT EXISTS pagamento (
     id SERIAL PRIMARY KEY,                  -- Atributo id com incremento automático
-    situacao VARCHAR(255) NOT NULL,          -- Atributo situacao como VARCHAR
+    situacao VARCHAR(255),          -- Atributo situacao como VARCHAR
     descricao VARCHAR(255),                  -- Atributo descricao como VARCHAR
-    valor REAL NOT NULL,                   -- Atributo valor como DOUBLE
+    valor REAL,                   -- Atributo valor como DOUBLE
     dataPagamento DATE,                      -- Atributo dataPagamento como DATE
     dataVencimento DATE                      -- Atributo dataVencimento como DATE
 );
 
 
-CREATE SEQUENCE IF NOT EXISTS pagamento_id_seq
+CREATE SEQUENCE IF NOT EXISTS pagamento_seq
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
