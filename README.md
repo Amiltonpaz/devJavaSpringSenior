@@ -44,7 +44,7 @@ f. Obter valor total pago por período.
 a. O arquivo será consumido via API.
 5. Implementar testes unitários.
 
-*Após baixar o projeto, executar o comando docker-compose --build de dentro do diretório onde o arquivo docker-compose está localizado, para criar a imagem da aplicação e subir os containers.
+*Após baixar o projeto, executar o comando docker-compose up --build de dentro do diretório onde o arquivo docker-compose está localizado, para criar a imagem da aplicação e subir os containers.
 Criei o usuário e senha abaixo para autenticar e obter o token.
 
 Após adicionar o token, já conseguirá acessar as rotas. Todas estão funcionando.
