@@ -45,8 +45,7 @@ public class ImportaContasCsv {
 			scanner.useDelimiter("\n");
 			
 			var cabecalho = scanner.next();
-			validadorCabecalho(cabecalho);
-			
+						
 			while(scanner.hasNext()) {
 				
 				contasExtraidas =	adicionarContas(scanner.next(), contas);
