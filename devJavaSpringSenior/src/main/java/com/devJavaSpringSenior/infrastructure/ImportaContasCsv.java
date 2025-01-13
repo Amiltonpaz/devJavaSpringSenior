@@ -39,19 +39,24 @@ public class ImportaContasCsv {
 		 List<ContaEntity> contasExtraidas = new ArrayList<ContaEntity>();
 		 
 		InputStream inputStream = file.getInputStream();
+		var scanner = new Scanner(inputStream);
 		
-		try( var scanner = new Scanner(inputStream)) {
-			
+		 try {
 			scanner.useDelimiter("\n");
-
+			
+			var cabecalho = scanner.next();
+			validadorCabecalho(cabecalho);
+			
 			while(scanner.hasNext()) {
 				
 				contasExtraidas =	adicionarContas(scanner.next(), contas);
 				
 			}
+		}finally {
+			scanner.close();
+		}
 			
 			return contaRepository.saveAll(contasExtraidas);
-		}
 
 	}
 	

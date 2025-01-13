@@ -1,0 +1,4 @@
+dataVencimento;dataPagamento;valor;descricao;situacao
+01/08/2025;10/02/2025;125.00;Empréstimo Consignado;Fechado
+08/10/2025;05/01/2025;88.00;Empréstimo Pessoal;Fechado
+03/05/2025;02/02/2025;55.00;Investimento;Fechado
