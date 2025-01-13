@@ -22,6 +22,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -31,8 +32,8 @@ import com.devJavaSpringSenior.infrastructure.ContaService;
 import com.devJavaSpringSenior.infrastructure.dto.ContaDto;
 import com.devJavaSpringSenior.infrastructure.dto.ValorPagoDto;
 
-//@ExtendWith(MockitoExtension.class)
 @SpringBootTest
+@ComponentScan(basePackages = "com.devJavaSpringSenior")
 public class ContaServiceTest {
 	
     @InjectMocks

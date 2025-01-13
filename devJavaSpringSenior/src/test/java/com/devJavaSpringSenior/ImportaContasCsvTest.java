@@ -21,6 +21,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.devJavaSpringSenior.domain.ContaEntity;
@@ -29,6 +30,7 @@ import com.devJavaSpringSenior.infrastructure.ImportaContasCsv;
 import com.devJavaSpringSenior.infrastructure.exception.CabecalhoException;
 
 @SpringBootTest
+@ComponentScan(basePackages = "com.devJavaSpringSenior")
 public class ImportaContasCsvTest {
 
 	    @InjectMocks

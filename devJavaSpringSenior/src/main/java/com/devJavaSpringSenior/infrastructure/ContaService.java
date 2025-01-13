@@ -110,7 +110,7 @@ public class ContaService {
 			conta.setDataPagamento(dataPagamento);
 			conta.setDataVencimento(dataVencimento);
 			conta.setDescricao(contaDto.getDescricao());
-			conta.setSituacao(contaDto.getSituacao());
+			conta.setSituacao(contaDto.getSituacao().trim().replaceAll("\\r", ""));
 			conta.setValor(contaDto.getValor());
 			
 			return conta;
@@ -137,7 +137,7 @@ public class ContaService {
 			contaDto.setDataPagamento(this.formatarData(dataPagamento));
 			contaDto.setDataVencimento(this.formatarData(dataVencimento));
 			contaDto.setDescricao(contaEntity.getDescricao());
-			contaDto.setSituacao(contaEntity.getSituacao());
+			contaDto.setSituacao(contaEntity.getSituacao().trim().replaceAll("\\r", ""));
 			contaDto.setValor(contaEntity.getValor());
 			
 			return contaDto;		

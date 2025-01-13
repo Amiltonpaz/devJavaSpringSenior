@@ -15,11 +15,9 @@ import com.devJavaSpringSenior.domain.ContaRepository;
 import com.devJavaSpringSenior.infrastructure.exception.CabecalhoException;
 
 import io.micrometer.common.util.StringUtils;
-import lombok.extern.slf4j.Slf4j;
 
 
 @Service
-@Slf4j
 public class ImportaContasCsv {
 	
 	 private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ImportaContasCsv.class);
@@ -106,7 +104,6 @@ public class ImportaContasCsv {
 	}
 
 	public static void validadorCabecalho(String cabecalho) throws CabecalhoException {
-		//TODO Verificar validação do cabeçalho
 		if(StringUtils.isEmpty(cabecalho) || !CABECALHO.equalsIgnoreCase(cabecalho)) {
 			throw new CabecalhoException(cabecalho);
 		}

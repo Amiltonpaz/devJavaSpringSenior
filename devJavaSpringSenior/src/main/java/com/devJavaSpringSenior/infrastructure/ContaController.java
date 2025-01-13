@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -63,9 +64,9 @@ public class ContaController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("/listarContasPorVencimentoDescricao/{dataVencimento}/{descricao}")
-	public ResponseEntity<?> getListaContasFilterVencimentoDescricao(@PathVariable String dataVencimento, 
-			@PathVariable String descricao, Pageable pageable) {
+	@GetMapping("/listarContasPorVencimentoDescricao")
+	public ResponseEntity<?> getListaContasFilterVencimentoDescricao(@RequestParam(value = "dataVencimento") String dataVencimento, 
+			@RequestParam(value = "descricao") String descricao, Pageable pageable) {
 		return ResponseEntity.ok(contaService.findContasPorVencimentoDescricao(dataVencimento, descricao, pageable));
 	}
 	
@@ -74,9 +75,9 @@ public class ContaController {
 		return ResponseEntity.ok(contaService.getById(id));
 	}
 	
-	@GetMapping("/totalPagoPorPeriodo/{dataInicial}/{dataFinal}")
-	public ResponseEntity<?> totalPagoPorPeriodo(@PathVariable String dataInicial, 
-			@PathVariable String dataFinal, Pageable pageable) {
+	@GetMapping("/totalPagoPorPeriodo")
+	public ResponseEntity<?> totalPagoPorPeriodo(@RequestParam(value = "dataInicial") String dataInicial, 
+			@RequestParam(value = "dataFinal") String dataFinal, Pageable pageable) {
 		return ResponseEntity.ok(contaService.findTotalPagoPorPeriodo(dataInicial, dataFinal, pageable));
 	}
 	
