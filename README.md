@@ -49,7 +49,7 @@ Criei o usuário e senha abaixo para autenticar e obter o token.
 
 Após adicionar o token, já conseguirá acessar as rotas. Todas estão funcionando.
 
-* Sobre o requisito geral número 11, não foi possível paginar TODAS as rotas, pois a paginação depende de uma lista para ser implementada, ou seja, não consigo paginar uma rota que tras apenas 1 registro.
+* Sobre o requisito geral número 11, não foi possível paginar TODAS as rotas, pois a paginação depende de uma lista para ser implementada, ou seja, não consigo paginar uma rota que traz apenas 1 registro.
 
 ![image](https://github.com/user-attachments/assets/81f1779c-5ecc-43a9-898a-c911bc018083)
 
