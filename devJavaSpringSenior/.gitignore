@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Permitir apenas o .jar dentro da pasta target
+!/target/*.jar
