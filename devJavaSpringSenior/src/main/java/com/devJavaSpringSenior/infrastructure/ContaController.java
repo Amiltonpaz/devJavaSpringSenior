@@ -20,8 +20,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.devJavaSpringSenior.infrastructure.dto.ContaDto;
 import com.devJavaSpringSenior.infrastructure.exception.CabecalhoException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/pagamentos")
+@SecurityRequirement(name = "bearerAuth")
 public class ContaController {
 	
 	@Autowired
@@ -29,12 +35,14 @@ public class ContaController {
 	
 	@Autowired
 	private ImportaContasCsv importaContasCsv;
-
+	
+	@Operation(summary = "Cadastrar conta", description = "Este endpoint permite cadastrar uma nova conta.")
 	@PostMapping("/cadastrarConta")
 	public ResponseEntity<?> cadastrarConta(@RequestBody ContaDto contaDto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(contaService.create(contaDto));
 	}
 	
+	@Operation(summary = "Atualizar conta", description = "Este endpoint permite atualizar uma conta.")
 	@PutMapping("/atualizarConta")
 	public ResponseEntity<?> atualizarConta(@RequestBody ContaDto contaDto) {
 		
@@ -50,6 +58,7 @@ public class ContaController {
 		
 	}
 	
+	@Operation(summary = "Alterar situação da conta", description = "Este endpoint permite atualizar a situação da conta.")
 	@PutMapping("/alterarSituacaoConta")
 	public ResponseEntity<?> alterarSituacaoDaConta(@RequestBody ContaDto contaDto) {
 		if(contaService.existeObjeto(contaDto.getId())) {
@@ -64,23 +73,31 @@ public class ContaController {
 		return ResponseEntity.notFound().build();
 	}
 	
+	@Operation(summary = "Listar contas por vencimento e descrição.", description = "Este endpoint retorna uma lista de contas, considerando a data de vencimento e a descrição fornecida exata ou em parte.")
 	@GetMapping("/listarContasPorVencimentoDescricao")
 	public ResponseEntity<?> getListaContasFilterVencimentoDescricao(@RequestParam(value = "dataVencimento") String dataVencimento, 
 			@RequestParam(value = "descricao") String descricao, Pageable pageable) {
 		return ResponseEntity.ok(contaService.findContasPorVencimentoDescricao(dataVencimento, descricao, pageable));
 	}
 	
+	@Operation(summary = "Buscar uma conta por ID", description = "Este endpoint retorna os detalhes de uma conta com base no ID fornecido.")
+	    @ApiResponses(value = {
+	        @ApiResponse(responseCode = "200", description = "Conta encontrada"),
+	        @ApiResponse(responseCode = "404", description = "Conta não encontrada")
+	    })
 	@GetMapping("/conta/{id}")
 	public ResponseEntity<?> getContaPorId(@PathVariable Long id) {		
 		return ResponseEntity.ok(contaService.getById(id));
 	}
 	
+	@Operation(summary = "Calcular o total pago por período", description = "Este endpoint retorna o valor total pago baseado no intervalo solicitado.")	   
 	@GetMapping("/totalPagoPorPeriodo")
 	public ResponseEntity<?> totalPagoPorPeriodo(@RequestParam(value = "dataInicial") String dataInicial, 
 			@RequestParam(value = "dataFinal") String dataFinal, Pageable pageable) {
 		return ResponseEntity.ok(contaService.findTotalPagoPorPeriodo(dataInicial, dataFinal, pageable));
 	}
 	
+	@Operation(summary = "Importar contas a partir de arquivo .csv", description = "Este Endpoint recebe um arquivo .csv contendo as contas a serem importadas para o banco de dados.")	    
 	@PostMapping("/importarContasCsv")
 	public ResponseEntity<?> importarContasFromCsv(MultipartFile file, Pageable pageable) {
         
