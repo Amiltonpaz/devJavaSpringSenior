@@ -51,6 +51,8 @@ Após adicionar o token, já conseguirá acessar as rotas. Todas estão funciona
 
 * Sobre o requisito geral número 11, não foi possível paginar TODAS as rotas, pois a paginação depende de uma lista para ser implementada, ou seja, não consigo paginar uma rota que traz apenas 1 registro.
 
+* De quebra, implementei o Swagger para melhorar a documentação da API. Após obter o token pelo Postman ou Insomnia (etc.), basta acessar a url http://localhost:8080/swagger-ui/index.html e ter acesso aos endpoints.
+
 ![image](https://github.com/user-attachments/assets/81f1779c-5ecc-43a9-898a-c911bc018083)
 
 Cadastrar Conta:
