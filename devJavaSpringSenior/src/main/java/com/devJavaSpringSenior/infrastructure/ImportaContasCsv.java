@@ -50,6 +50,10 @@ public class ImportaContasCsv {
 				
 				contasExtraidas =	adicionarContas(scanner.next(), contas);
 				
+				contasExtraidas.forEach(conta -> 
+			    conta.setSituacao(conta.getSituacao().trim().replaceAll("\\r", ""))
+			);
+				
 			}
 		}finally {
 			scanner.close();
