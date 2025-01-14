@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.anyList;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -15,11 +14,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +31,7 @@ import com.devJavaSpringSenior.infrastructure.ImportaContasCsv;
 import com.devJavaSpringSenior.infrastructure.exception.CabecalhoException;
 
 @SpringBootTest
-@ComponentScan(basePackages = "com.devJavaSpringSenior")
+@ExtendWith(MockitoExtension.class)
 public class ImportaContasCsvTest {
 
 	    @InjectMocks
@@ -41,7 +42,7 @@ public class ImportaContasCsvTest {
 
 	    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-	    @Before
+	    @BeforeEach
 	    public void setUp() {
 	    	 MockitoAnnotations.openMocks(this);
 	    }

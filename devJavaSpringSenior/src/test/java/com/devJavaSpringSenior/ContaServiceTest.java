@@ -16,13 +16,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -33,7 +35,7 @@ import com.devJavaSpringSenior.infrastructure.dto.ContaDto;
 import com.devJavaSpringSenior.infrastructure.dto.ValorPagoDto;
 
 @SpringBootTest
-@ComponentScan(basePackages = "com.devJavaSpringSenior")
+@ExtendWith(MockitoExtension.class)
 public class ContaServiceTest {
 	
     @InjectMocks
@@ -46,7 +48,7 @@ public class ContaServiceTest {
     private ContaEntity contaEntity;
     private List<ContaEntity> listaDeContas;
     
-    @Before
+    @BeforeEach
     public void setUp() throws ParseException {
     	 MockitoAnnotations.openMocks(this);
         // Preparando os dados para os testes
