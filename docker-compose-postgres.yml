@@ -1,0 +1,14 @@
+services:
+  # Serviço do banco de dados PostgreSQL
+  database:
+    image: postgres:14
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=contasapagar
+    ports:
+      - "2222:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data    
+volumes:
+  pg-data:
