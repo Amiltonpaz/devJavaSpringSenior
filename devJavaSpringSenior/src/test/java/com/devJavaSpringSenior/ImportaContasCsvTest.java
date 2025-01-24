@@ -22,7 +22,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.devJavaSpringSenior.domain.ContaEntity;
@@ -30,6 +30,7 @@ import com.devJavaSpringSenior.domain.ContaRepository;
 import com.devJavaSpringSenior.infrastructure.ImportaContasCsv;
 import com.devJavaSpringSenior.infrastructure.exception.CabecalhoException;
 
+@ActiveProfiles("test")
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class ImportaContasCsvTest {

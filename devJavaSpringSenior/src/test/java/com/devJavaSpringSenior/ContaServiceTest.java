@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +26,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.devJavaSpringSenior.domain.ContaEntity;
 import com.devJavaSpringSenior.domain.ContaRepository;
@@ -34,6 +34,7 @@ import com.devJavaSpringSenior.infrastructure.ContaService;
 import com.devJavaSpringSenior.infrastructure.dto.ContaDto;
 import com.devJavaSpringSenior.infrastructure.dto.ValorPagoDto;
 
+@ActiveProfiles("test")
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class ContaServiceTest {

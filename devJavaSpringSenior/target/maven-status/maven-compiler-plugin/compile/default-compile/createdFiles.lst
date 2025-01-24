@@ -1,6 +1,5 @@
 com\devJavaSpringSenior\domain\ContaEntity.class
 com\devJavaSpringSenior\domain\UserAuthenticated.class
-com\devJavaSpringSenior\infrastructure\CustomPostgreSqlContainer.class
 com\devJavaSpringSenior\infrastructure\ContaService.class
 com\devJavaSpringSenior\domain\ContaRepository.class
 com\devJavaSpringSenior\infrastructure\exception\CabecalhoException.class
