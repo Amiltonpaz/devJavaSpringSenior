@@ -23,6 +23,8 @@ import com.devJavaSpringSenior.infrastructure.exception.DataParseException;
 
 @Service
 public class ContaService {
+	
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ImportaContasCsv.class);
 
 	@Autowired
 	private ContaRepository repository;
@@ -87,7 +89,6 @@ public class ContaService {
 	            .mapToDouble(ContaEntity::getValor)
 	            .sum();
 
-	    // Arredondar para duas casas decimais
 	    BigDecimal valorFinal = BigDecimal.valueOf(valorAcumulado).setScale(2, RoundingMode.HALF_UP);
 
 	    ValorPagoDto valorPago = new ValorPagoDto();
@@ -116,8 +117,7 @@ public class ContaService {
 			return conta;
 			
 		} catch (DataParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e.getMessage());
 		}
 		
 		return null;
@@ -151,11 +151,10 @@ public class ContaService {
 	            SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
 	            return dateFormat.parse(dataString);
 	        } catch (ParseException e) {
-	            // Ignora a exceção e tenta o próximo formato
+	            log.warn(e.getMessage());
 	        }
 	    }
 	    
-	    // Lança uma exceção personalizada quando nenhum formato é válido
 	    throw new DataParseException("Erro ao parsear a data: formato inválido");
 	}
 	
@@ -164,7 +163,7 @@ public class ContaService {
 		try {
 			return formato.parse(dataString);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			log.error(e.getMessage());;
 		}
 		return null; 
 	}

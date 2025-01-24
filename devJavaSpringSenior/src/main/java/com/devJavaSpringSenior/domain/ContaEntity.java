@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.devJavaSpringSenior.infrastructure.ImportaContasCsv;
 import com.devJavaSpringSenior.infrastructure.exception.DataParseException;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -19,6 +20,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "pagamento", schema = "public")
 public class ContaEntity {
+	
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ImportaContasCsv.class);
 	
 	public ContaEntity() {
 		
@@ -66,8 +69,8 @@ public class ContaEntity {
 			this.valor = Double.valueOf(valor);
 			this.descricao = descricao;
 			this.situacao = situacao;
-		} catch (DataParseException e) {		
-			e.printStackTrace();
+		} catch (DataParseException e) {
+			log.error(e.getMessage());			
 		}
 		
 	}
@@ -128,11 +131,9 @@ public class ContaEntity {
 	            SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
 	            return dateFormat.parse(dataString);
 	        } catch (ParseException e) {
-	            // Ignora a exceção e tenta o próximo formato
+	            log.warn(e.getMessage());
 	        }
-	    }
-	    
-	    // Lança uma exceção personalizada quando nenhum formato é válido
+	    }	    
 	    throw new DataParseException("Erro ao parsear a data: formato inválido");
 	}
 	

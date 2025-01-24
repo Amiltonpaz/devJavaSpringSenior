@@ -83,7 +83,7 @@ public class ImportaContasCsv {
 			
 			return contaRepository.saveAll(contasExtraidas);
 		}catch (Exception  e) {
-			e.printStackTrace();
+			log.error(e.getMessage());			
 		}
 		
 		return null;

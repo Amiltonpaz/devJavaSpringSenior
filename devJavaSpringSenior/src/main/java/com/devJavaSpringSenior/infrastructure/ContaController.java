@@ -30,6 +30,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @SecurityRequirement(name = "bearerAuth")
 public class ContaController {
 	
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ImportaContasCsv.class);
+	
 	@Autowired
 	private ContaService contaService;
 	
@@ -110,10 +112,9 @@ public class ContaController {
 			return ResponseEntity.ok(importaContasCsv.lerArquivo(file));
 			
 		} catch (IOException e) {
-			
-			e.printStackTrace();
+			log.error(e.getMessage());			
 		} catch (CabecalhoException e) {
-			
+			log.error(e.getMessage());
 			e.printStackTrace();
 		}
 		
